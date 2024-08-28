@@ -5,6 +5,7 @@ import {
   DynamicContextProvider,
   EthereumWalletConnectors,
 } from "./components/Dynamic";
+import { Header } from "./components";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
             walletConnectors: [EthereumWalletConnectors],
           }}
         >
+          <Header />
           {children}
         </DynamicContextProvider>
       </body>

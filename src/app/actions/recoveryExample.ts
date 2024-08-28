@@ -50,10 +50,7 @@ const entryPoint = ENTRYPOINT_ADDRESS_V07;
 const recoveryExecutorFunction =
   "function doRecovery(address _validator, bytes calldata _data)";
 
-export const recoveryExample = async (
-  primaryWallet: Wallet | null,
-  index: bigint
-) => {
+export const recoveryExample = async (primaryWallet: Wallet | null) => {
   if (!primaryWallet)
     throw new Error(
       "primaryWallet is null or undefined. Is the user logged in?"
@@ -93,7 +90,7 @@ export const recoveryExample = async (
       regular: guardianValidator,
       action: getRecoveryAction(entryPoint),
     },
-    index, // This is like a nonce. Since the SA is counterfactually computed, this allows the same account to deploy more than one.
+    // index, // This is like a nonce. Since the SA is counterfactually computed, this allows the same account to deploy more than one.
     kernelVersion: KERNEL_V3_1,
   });
 

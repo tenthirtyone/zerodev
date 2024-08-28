@@ -1,3 +1,4 @@
+"use client";
 import { useDynamicContext, DynamicWidget } from "@/app/components";
 
 export function LogInLogOut() {
@@ -9,5 +10,3 @@ export function LogInLogOut() {
     </>
   );
 }
-
-export default LogInLogOut;
