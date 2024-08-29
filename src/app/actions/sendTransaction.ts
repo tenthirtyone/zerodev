@@ -30,7 +30,9 @@ const entryPoint = ENTRYPOINT_ADDRESS_V07;
 
 export const sendTransaction = async (
   primaryWallet: Wallet | null,
-  index: bigint
+  index: bigint,
+  to: `0x${string}`,
+  value: bigint
 ) => {
   if (!primaryWallet)
     throw new Error(
@@ -82,8 +84,8 @@ export const sendTransaction = async (
   // data is from API Endpoint: https://api-mainnet.magiceden.io/v3/rtp/polygon/execute/buy/v7
   //https://docs.zerodev.app/sdk/core-api/send-transactions#sending-transactions-1
   const txHash = await kernelClient.sendTransaction({
-    to: "0x206CDd64aec5819495C88B57D0E18E014670Bcc4", // buyResponse.steps[0].items[0].data.to as `0x${string}`,
-    value: BigInt(1), // BigInt(buyResponse.steps[0].items[0].data.value),
+    to, // buyResponse.steps[0].items[0].data.to as `0x${string}`,
+    value, // BigInt(buyResponse.steps[0].items[0].data.value),
     data: "0x", //buyResponse.steps[0].items[0].data.data as `0x${string}`,
   });
 

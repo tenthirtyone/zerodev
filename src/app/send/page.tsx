@@ -6,22 +6,22 @@ import { sendTransaction } from "@/app/actions";
 
 export default function SendTransaction(index: bigint) {
   const { primaryWallet } = useDynamicContext();
-  const [address, setAddress] = useState<`0x${string}`>("0x");
-  const [amount, setAmount] = useState(0n);
+  const [to, setTo] = useState<`0x${string}`>("0x");
+  const [value, setValue] = useState(0n);
 
   const handleAddressChange = (e: any) => {
-    setAddress(e.target.value);
+    setTo(e.target.value);
   };
 
   const handleAmountChange = (e: any) => {
-    setAmount(e.target.value);
+    setValue(BigInt(e.target.value));
   };
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      await sendTransaction(primaryWallet, 2n);
+      await sendTransaction(primaryWallet, 2n, to, value);
       alert("Transaction sent successfully!");
     } catch (error: any) {
       alert(`Error sending transaction: ${error.message}`);
@@ -38,7 +38,7 @@ export default function SendTransaction(index: bigint) {
           <input
             type="text"
             id="address"
-            value={address}
+            value={to}
             onChange={handleAddressChange}
             className="px-4 py-2 bg-gray-800 text-white rounded"
             placeholder="Enter crypto address"
@@ -46,12 +46,12 @@ export default function SendTransaction(index: bigint) {
         </div>
         <div>
           <label htmlFor="amount" className="block mb-2">
-            Amount
+            Amount (wei)
           </label>
           <input
             type="text"
             id="amount"
-            value={amount.toString()}
+            value={value.toString()}
             onChange={handleAmountChange}
             className="px-4 py-2 bg-gray-800 text-white rounded"
             placeholder="Enter amount"
