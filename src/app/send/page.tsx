@@ -7,9 +7,10 @@ import { useSendTransaction } from "@/app/hooks";
 
 export default function SendTransaction(index: bigint) {
   const { primaryWallet } = useDynamicContext();
-  const { sendTransaction } = useSendTransaction();
+  const { sendTransaction, transactionHash } = useSendTransaction();
   const [to, setTo] = useState<`0x${string}`>("0x");
   const [value, setValue] = useState(0n);
+  const [data, setData] = useState<`0x${string}`>("0x");
   const handleAddressChange = (e: any) => {
     setTo(e.target.value);
   };
@@ -22,15 +23,14 @@ export default function SendTransaction(index: bigint) {
     e.preventDefault();
 
     try {
-      await sendTransaction(primaryWallet, 2n, to, value);
-      alert("Transaction sent successfully!");
+      await sendTransaction(primaryWallet, 2n, to, value, data);
     } catch (error: any) {
       alert(`Error sending transaction: ${error.message}`);
     }
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center">
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="address" className="block mb-2">
@@ -65,6 +65,11 @@ export default function SendTransaction(index: bigint) {
           Send Transaction
         </button>
       </form>
+      {transactionHash && (
+        <div className="mt-4 text-green-400">
+          Transaction Hash: {transactionHash}
+        </div>
+      )}
     </div>
   );
 }

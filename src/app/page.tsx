@@ -10,7 +10,7 @@ import { buyNFT } from "@/app/actions";
 
 export default function Home() {
   const { primaryWallet } = useDynamicContext();
-  const [index] = useState(2n);
+  const [index] = useState(4n);
 
   const handleBuyNFT = async () => {
     try {

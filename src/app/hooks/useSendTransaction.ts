@@ -24,7 +24,8 @@ export const useSendTransaction = () => {
       primaryWallet: Wallet | null,
       index: bigint,
       to: `0x${string}`,
-      value: bigint
+      value: bigint,
+      data: `0x${string}`
     ) => {
       setLoading(true);
       setError(null);
@@ -83,7 +84,7 @@ export const useSendTransaction = () => {
         const txHash = await kernelClient.sendTransaction({
           to,
           value,
-          data: "0x",
+          data,
         });
 
         setTransactionHash(txHash);
