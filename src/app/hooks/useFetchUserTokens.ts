@@ -7,10 +7,8 @@ const useFetchUserTokens = (address: `0x${string}`) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const API_KEY = "YOUR_API_KEY";
     const config = {
       headers: {
-        Authorization: `Bearer ${API_KEY}`,
         Accept: "*/*",
       },
     };

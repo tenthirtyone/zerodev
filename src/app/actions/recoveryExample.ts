@@ -22,7 +22,7 @@ import {
   privateKeyToAccount,
   PrivateKeyAccount,
 } from "viem/accounts";
-import { sepolia } from "viem/chains";
+import { polygon } from "viem/chains";
 import {
   createWeightedECDSAValidator,
   getRecoveryAction,
@@ -95,7 +95,7 @@ export const recoveryExample = async (primaryWallet: Wallet | null) => {
   });
 
   const paymasterClient = createZeroDevPaymasterClient({
-    chain: sepolia,
+    chain: polygon,
     transport: http(process.env.NEXT_PUBLIC_PAYMASTER_RPC, {
       timeout: 60_000,
     }),
@@ -105,7 +105,7 @@ export const recoveryExample = async (primaryWallet: Wallet | null) => {
   // This is the counterfactual Smart Account client.
   const kernelClient = createKernelAccountClient({
     account,
-    chain: sepolia,
+    chain: polygon,
     entryPoint,
     bundlerTransport: http(process.env.NEXT_PUBLIC_BUNDLER_RPC, {
       timeout: 60_000,
@@ -160,7 +160,7 @@ export const recoveryExample = async (primaryWallet: Wallet | null) => {
   const newKernelClient = createKernelAccountClient({
     entryPoint,
     account: newAccount,
-    chain: sepolia,
+    chain: polygon,
     bundlerTransport: http(process.env.NEXT_PUBLIC_BUNDLER_RPC, {
       timeout: 60_000,
     }),

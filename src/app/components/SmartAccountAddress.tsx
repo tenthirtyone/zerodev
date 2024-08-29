@@ -21,10 +21,10 @@ const publicClient = createPublicClient({
 const entryPoint = ENTRYPOINT_ADDRESS_V07;
 
 type SmartAccountAddressProps = {
-  //index: bigint;
+  index: bigint;
 };
 
-export function SmartAccountAddress() {
+export function SmartAccountAddress({ index }: SmartAccountAddressProps) {
   const { primaryWallet } = useDynamicContext();
   const [address, setAddress] = useState("");
 
@@ -51,7 +51,7 @@ export function SmartAccountAddress() {
             plugins: {
               sudo: ecdsaValidator,
             },
-            //index,
+            index,
             kernelVersion: KERNEL_V3_1,
           });
 

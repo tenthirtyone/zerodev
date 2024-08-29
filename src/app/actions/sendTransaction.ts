@@ -28,7 +28,10 @@ const publicClient = createPublicClient({
 
 const entryPoint = ENTRYPOINT_ADDRESS_V07;
 
-export const buyNFT = async (primaryWallet: Wallet | null, index: bigint) => {
+export const sendTransaction = async (
+  primaryWallet: Wallet | null,
+  index: bigint
+) => {
   if (!primaryWallet)
     throw new Error(
       "primaryWallet is null or undefined. Is the user logged in?"
@@ -75,44 +78,14 @@ export const buyNFT = async (primaryWallet: Wallet | null, index: bigint) => {
     //},
   });
 
-  console.log(kernelClient);
-
-  console.log("sending transction");
-  console.log(process.env.NEXT_PUBLIC_BUNDLER_RPC);
-
   // @ts-ignore
   // data is from API Endpoint: https://api-mainnet.magiceden.io/v3/rtp/polygon/execute/buy/v7
   //https://docs.zerodev.app/sdk/core-api/send-transactions#sending-transactions-1
-  //const txHash = await kernelClient.sendTransaction({
-  //  to: "0x206CDd64aec5819495C88B57D0E18E014670Bcc4", // buyResponse.steps[0].items[0].data.to as `0x${string}`,
-  //  value: BigInt(1), // BigInt(buyResponse.steps[0].items[0].data.value),
-  //  data: "0x", //buyResponse.steps[0].items[0].data.data as `0x${string}`,
-  //});
-  //
-  //console.log(txHash);
-
-  const nonceKey = getCustomNonceKeyFromString("nonce key", entryPoint);
-  const nonce = await account.getNonce(nonceKey);
-
-  // If you use an alchemy provider you need to configure the user operations
-  const opHash = await kernelClient.sendUserOperation({
-    userOperation: {
-      callData: await kernelClient.account.encodeCallData({
-        to: zeroAddress,
-        value: BigInt(0),
-        data: "0x",
-      }),
-      maxPriorityFeePerGas: BigInt(34000000000),
-      maxFeePerGas: BigInt(34000000033),
-      nonce,
-    },
-  });
-  console.log(opHash);
-
-  const bundlerClient = kernelClient.extend(bundlerActions(entryPoint));
-  const receipt = await bundlerClient.waitForUserOperationReceipt({
-    hash: opHash,
+  const txHash = await kernelClient.sendTransaction({
+    to: "0x206CDd64aec5819495C88B57D0E18E014670Bcc4", // buyResponse.steps[0].items[0].data.to as `0x${string}`,
+    value: BigInt(1), // BigInt(buyResponse.steps[0].items[0].data.value),
+    data: "0x", //buyResponse.steps[0].items[0].data.data as `0x${string}`,
   });
 
-  console.log(receipt);
+  console.log(txHash);
 };
