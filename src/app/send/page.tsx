@@ -2,13 +2,14 @@
 import React, { useState } from "react";
 
 import { useDynamicContext } from "@/app/components";
-import { sendTransaction } from "@/app/actions";
+
+import { useSendTransaction } from "@/app/hooks";
 
 export default function SendTransaction(index: bigint) {
   const { primaryWallet } = useDynamicContext();
+  const { sendTransaction } = useSendTransaction();
   const [to, setTo] = useState<`0x${string}`>("0x");
   const [value, setValue] = useState(0n);
-
   const handleAddressChange = (e: any) => {
     setTo(e.target.value);
   };

@@ -1,22 +1,16 @@
 import { Wallet } from "@/app/components";
-import { buyResponse } from "@/app/data/apiResponseData";
-import { createStackupPaymasterClient } from "permissionless/clients/stackup";
-import { createPimlicoPaymasterClient } from "permissionless/clients/pimlico";
 import {
   createKernelAccount,
   createZeroDevPaymasterClient,
   createKernelAccountClient,
-  getCustomNonceKeyFromString,
 } from "@zerodev/sdk";
 import {
   ENTRYPOINT_ADDRESS_V07,
-  bundlerActions,
   walletClientToSmartAccountSigner,
 } from "permissionless";
 import { http, createPublicClient, zeroAddress } from "viem";
 
 import { polygon } from "viem/chains";
-
 import { signerToEcdsaValidator } from "@zerodev/ecdsa-validator";
 import { KERNEL_V3_1 } from "@zerodev/sdk/constants";
 
@@ -83,7 +77,7 @@ export const sendTransaction = async (
   // @ts-ignore
   // data is from API Endpoint: https://api-mainnet.magiceden.io/v3/rtp/polygon/execute/buy/v7
   //https://docs.zerodev.app/sdk/core-api/send-transactions#sending-transactions-1
-  const txHash = await kernelClient.sendTransaction({
+  const txHash = await client.sendTransaction({
     to, // buyResponse.steps[0].items[0].data.to as `0x${string}`,
     value, // BigInt(buyResponse.steps[0].items[0].data.value),
     data: "0x", //buyResponse.steps[0].items[0].data.data as `0x${string}`,
